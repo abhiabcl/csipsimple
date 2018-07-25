@@ -169,7 +169,12 @@ public class Advanced extends BaseImplementation {
 		account.reg_uri = "sip:" + getServer();
 
 		account.realm = "*";
-		
+
+		// ABHI
+		account.use_srtp = 0;
+		account.mwi_enabled = false;
+
+
         account.username = getText(accountAuthId).trim();
         if (TextUtils.isEmpty(account.username)) {
             account.username = getText(accountUserName).trim();

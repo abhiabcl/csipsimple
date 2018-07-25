@@ -54,6 +54,7 @@ import com.actionbarsherlock.internal.nineoldandroids.animation.ValueAnimator;
 import com.actionbarsherlock.internal.widget.IcsLinearLayout;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
+import com.csipsimple.CsipSampleConstant;
 import com.csipsimple.R;
 import com.csipsimple.api.SipConfigManager;
 import com.csipsimple.api.SipManager;
@@ -492,6 +493,7 @@ public class SipHome extends SherlockFragmentActivity implements OnWarningChange
 
     // Service monitoring stuff
     private void startSipService() {
+        Log.i(CsipSampleConstant.TAG, "going to start SipService");
         Thread t = new Thread("StartSip") {
             public void run() {
                 Intent serviceIntent = new Intent(SipManager.INTENT_SIP_SERVICE);
@@ -507,6 +509,7 @@ public class SipHome extends SherlockFragmentActivity implements OnWarningChange
     }
 
     private void postStartSipService() {
+        Log.i(CsipSampleConstant.TAG, "going to start Post - SipService");
         // If we have never set fast settings
         if (CustomDistribution.showFirstSettingScreen()) {
             if (!prefProviderWrapper.getPreferenceBooleanValue(PreferencesWrapper.HAS_ALREADY_SETUP, false)) {

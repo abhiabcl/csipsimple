@@ -66,6 +66,7 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.MenuItem.OnMenuItemClickListener;
+import com.csipsimple.CsipSampleConstant;
 import com.csipsimple.R;
 import com.csipsimple.api.ISipService;
 import com.csipsimple.api.SipCallSession;
@@ -640,6 +641,7 @@ public class DialerFragment extends SherlockFragment implements OnClickListener,
 
     @Override
     public void placeCall() {
+        Log.i(CsipSampleConstant.TAG, "going to place call DialerFragement");
         placeCallWithOption(null);
     }
 
@@ -651,6 +653,7 @@ public class DialerFragment extends SherlockFragment implements OnClickListener,
     }
     
     private void placeCallWithOption(Bundle b) {
+        Log.i(CsipSampleConstant.TAG, "going to place call with option DialerFragement");
         if (service == null) {
             return;
         }
@@ -681,6 +684,7 @@ public class DialerFragment extends SherlockFragment implements OnClickListener,
         digits.getText().clear();
 
         // -- MAKE THE CALL --//
+        Log.i(CsipSampleConstant.TAG, "going to make the call DialerFragment");
         if (accountToUse >= 0) {
             // It is a SIP account, try to call service for that
             try {

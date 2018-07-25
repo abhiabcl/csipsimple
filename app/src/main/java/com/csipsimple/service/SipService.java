@@ -52,6 +52,7 @@ import android.text.TextUtils;
 import android.view.SurfaceView;
 import android.widget.Toast;
 
+import com.csipsimple.CsipSampleConstant;
 import com.csipsimple.R;
 import com.csipsimple.api.ISipConfiguration;
 import com.csipsimple.api.ISipService;
@@ -194,6 +195,9 @@ public class SipService extends Service {
          */
 		@Override
 		public void setAccountRegistration(int accountId, int renew) throws RemoteException {
+
+            Log.i(CsipSampleConstant.TAG, "going to set Account for Registration");
+
 			SipService.this.enforceCallingOrSelfPermission(SipManager.PERMISSION_USE_SIP, null);
 			
 			final SipProfile acc = getAccount(accountId);
@@ -239,6 +243,9 @@ public class SipService extends Service {
         @Override
         public void makeCallWithOptions(final String callee, final int accountId, final Bundle options)
                 throws RemoteException {
+
+            Log.i(CsipSampleConstant.TAG, "going to make call with Options");
+
             SipService.this.enforceCallingOrSelfPermission(SipManager.PERMISSION_USE_SIP, null);
             //We have to ensure service is properly started and not just binded
             SipService.this.startService(new Intent(SipService.this, SipService.class));
@@ -339,6 +346,7 @@ public class SipService extends Service {
          */
 		@Override
 		public int answer(final int callId, final int status) throws RemoteException {
+            Log.i(CsipSampleConstant.TAG, "going to answer");
 			SipService.this.enforceCallingOrSelfPermission(SipManager.PERMISSION_USE_SIP, null);
 			ReturnRunnable action = new ReturnRunnable() {
 				@Override
@@ -443,6 +451,8 @@ public class SipService extends Service {
          */
 		@Override
 		public int reinvite(final int callId, final boolean unhold) throws RemoteException {
+
+            Log.i(CsipSampleConstant.TAG, "going to start Reinvite");
 			SipService.this.enforceCallingOrSelfPermission(SipManager.PERMISSION_USE_SIP, null);
 			Log.d(THIS_FILE, "REINVITING");
 			ReturnRunnable action = new ReturnRunnable() {
@@ -512,6 +522,8 @@ public class SipService extends Service {
          */
 		@Override
 		public SipCallSession[] getCalls() throws RemoteException {
+
+            Log.i(CsipSampleConstant.TAG, "going to get call");
 			SipService.this.enforceCallingOrSelfPermission(SipManager.PERMISSION_USE_SIP, null);
 			if(pjService != null) {
 				SipCallSession[] listOfCallsImpl = pjService.getCalls();
@@ -1080,6 +1092,8 @@ public class SipService extends Service {
 	}
 	
 	private void registerServiceBroadcasts() {
+
+        Log.i(CsipSampleConstant.TAG, "going to register service Broadcasts");
 	    if(serviceReceiver == null) {
 	        IntentFilter intentfilter = new IntentFilter();
             intentfilter.addAction(SipManager.ACTION_DEFER_OUTGOING_UNREGISTER);
@@ -1111,6 +1125,7 @@ public class SipService extends Service {
 	 * Register broadcast receivers.
 	 */
 	private void registerBroadcasts() {
+        Log.i(CsipSampleConstant.TAG, "going to Register broadcast receivers");
 		// Register own broadcast receiver
 		if (deviceStateReceiver == null) {
 			IntentFilter intentfilter = new IntentFilter();
