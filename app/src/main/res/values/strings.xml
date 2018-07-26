@@ -115,4 +115,7 @@
     <string name="uri_im">IM with custom SIP scheme</string>
     <string name="uri_sip">Internet call</string>
 
+<!--ABHIHSKE-->
+    <string name="ec3_tab_name_text">EC3</string>
+
 </resources>

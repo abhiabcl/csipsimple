@@ -47,6 +47,7 @@ import com.actionbarsherlock.internal.view.menu.MenuBuilder;
 import com.actionbarsherlock.internal.view.menu.MenuBuilder.Callback;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
+import com.csipsimple.CsipSampleConstant;
 import com.csipsimple.R;
 import com.csipsimple.api.SipCallSession;
 import com.csipsimple.api.SipCallSession.MediaState;
@@ -110,6 +111,8 @@ public class InCallCard extends FrameLayout implements OnClickListener, Callback
         initControllerView();
         
         incallPlugins = ExtraPlugins.getDynActivityPlugins(context, SipManager.ACTION_INCALL_PLUGIN);
+
+        Log.i(CsipSampleConstant.TAG, "Calllllllll----------------1111");
     }
 
     private void initControllerView() {

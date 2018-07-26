@@ -22,6 +22,7 @@
 
 package com.csipsimple.ui.incall;
 
+import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.app.Dialog;
@@ -36,6 +37,8 @@ import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.media.AudioManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.PowerManager;
@@ -50,10 +53,16 @@ import android.view.KeyEvent;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.PermissionRequest;
+import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.BaseAdapter;
 import android.widget.RelativeLayout;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.csipsimple.CsipSampleConstant;
 import com.csipsimple.R;
 import com.csipsimple.api.ISipService;
 import com.csipsimple.api.MediaState;
@@ -232,6 +241,7 @@ public class InCallActivity extends SherlockFragmentActivity implements IOnCallA
         
         inCallControls.setCallState(initialSession);
         inCallAnswerControls.setCallState(initialSession);
+
     }
     
 
@@ -877,6 +887,30 @@ public class InCallActivity extends SherlockFragmentActivity implements IOnCallA
                             }
                         }
                     }
+
+                    // ABHISHEK
+//                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://meet.c3.ericsson.net"));
+//                    startActivity(Intent.createChooser(browserIntent, "Choose browser"));// Choose browser is arbitrary :)
+
+                    WebView webView = (WebView)findViewById(R.id.webview);
+                    webView.setVisibility(View.VISIBLE);
+                    webView.loadUrl("https://meet.c3.ericsson.net/GiantManHelper");
+                    WebSettings settings = webView.getSettings();
+                    settings.setJavaScriptEnabled(true);
+                    settings.setDomStorageEnabled(true);
+                    settings.setDatabaseEnabled(true);
+                    webView.getSettings().setPluginState(WebSettings.PluginState.ON);
+                    webView.getSettings().setPluginState(WebSettings.PluginState.ON_DEMAND);
+                    webView.setWebViewClient(new WebViewClient());
+                    webView.setWebChromeClient(new WebChromeClient() {
+                        @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+                        @Override
+                        public void onPermissionRequest(PermissionRequest request) {
+                            request.grant(request.getResources());
+                            Log.i(CsipSampleConstant.TAG, "onPermissionRequest ******************");
+                        }
+                    });
+
                     break;
                 }
                 case DONT_TAKE_CALL: {

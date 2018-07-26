@@ -62,6 +62,7 @@ import com.csipsimple.api.SipProfile;
 import com.csipsimple.ui.account.AccountsEditList;
 import com.csipsimple.ui.calllog.CallLogListFragment;
 import com.csipsimple.ui.dialpad.DialerFragment;
+import com.csipsimple.ui.ec3.Ec3Fragment;
 import com.csipsimple.ui.favorites.FavListFragment;
 import com.csipsimple.ui.help.Help;
 import com.csipsimple.ui.messages.ConversationsListFragment;
@@ -99,6 +100,8 @@ public class SipHome extends SherlockFragmentActivity implements OnWarningChange
     private final static int TAB_ID_FAVORITES = 2;
     private final static int TAB_ID_MESSAGES = 3;
     private final static int TAB_ID_WARNING = 4;
+    // ABHISHEK
+    private final static int TAB_ID_EC3 = 5;
 
     // protected static final int PICKUP_PHONE = 0;
     private static final int REQUEST_EDIT_DISTRIBUTION_ACCOUNT = 0;
@@ -150,6 +153,7 @@ public class SipHome extends SherlockFragmentActivity implements OnWarningChange
         Tab callLogTab = ab.newTab()
                  .setContentDescription(R.string.calllog_tab_name_text)
                 .setIcon(R.drawable.ic_ab_history_holo_dark);
+
         Tab favoritesTab = null;
         if(CustomDistribution.supportFavorites()) {
             favoritesTab = ab.newTab()
@@ -168,20 +172,30 @@ public class SipHome extends SherlockFragmentActivity implements OnWarningChange
         warningTabfadeAnim.setDuration(1500);
         warningTabfadeAnim.setRepeatCount(ValueAnimator.INFINITE);
         warningTabfadeAnim.setRepeatMode(ValueAnimator.REVERSE);
-        
+
+        // ABHISHEK Adding EC3 Tab
+        Tab ec3Tab = ab.newTab()
+                .setContentDescription(R.string.ec3_tab_name_text)
+                .setIcon(R.drawable.ericsson);
+
+
         mDualPane = getResources().getBoolean(R.bool.use_dual_panes);
 
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mTabsAdapter = new TabsAdapter(this, getSupportActionBar(), mViewPager);
         mTabsAdapter.addTab(dialerTab, DialerFragment.class, TAB_ID_DIALER);
+
         mTabsAdapter.addTab(callLogTab, CallLogListFragment.class, TAB_ID_CALL_LOG);
+
         if(favoritesTab != null) {
             mTabsAdapter.addTab(favoritesTab, FavListFragment.class, TAB_ID_FAVORITES);
         }
         if (messagingTab != null) {
             mTabsAdapter.addTab(messagingTab, ConversationsListFragment.class, TAB_ID_MESSAGES);
         }
-        
+
+        // ABHISHEK
+        mTabsAdapter.addTab(ec3Tab, Ec3Fragment.class, TAB_ID_EC3);
 
         hasTriedOnceActivateAcc = false;
 
